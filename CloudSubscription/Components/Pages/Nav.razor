@@ -1,0 +1,6 @@
+﻿@page "/nav/{Id}"
+<UISupportRazor.Nav Id="@Id"></UISupportRazor.Nav>
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+}
