@@ -1,0 +1,66 @@
+﻿@using System.IO
+@using Markdig
+@page "/"
+<style>
+    .markdown-content h1 {
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .markdown-content p {
+        line-height: 1.6;
+    }
+
+    .markdown-content ul {
+        padding-left: 1.5rem;
+    }
+
+    .markdown-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5em 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        table-layout: fixed; /* Forza la tabella a rispettare le larghezze delle colonne */
+    }
+
+    .markdown-content th, .markdown-content td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        word-wrap: break-word; /* Forza il testo a andare a capo */
+        overflow-wrap: break-word; /* Gestisce parole molto lunghe */
+    }
+
+    .markdown-content th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .markdown-content tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .markdown-content tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<PageTitle>Sample auto GUI generator for Blazor</PageTitle>
+
+<div class="markdown-content">
+    @((MarkupString)RenderedMarkdown)
+</div>
+
+@code {
+    private string RenderedMarkdown;
+
+    protected override void OnInitialized()
+    {
+        var markdown = File.ReadAllText("README.md");
+        var pipeline = new MarkdownPipelineBuilder()
+            .UsePipeTables() 
+            .Build();
+        RenderedMarkdown = Markdown.ToHtml(markdown, pipeline);
+    }
+}
