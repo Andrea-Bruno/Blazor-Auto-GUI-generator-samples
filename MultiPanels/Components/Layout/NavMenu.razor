@@ -2,7 +2,7 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">CloudSubscription</a>
+        <a class="navbar-brand" href="">MultiPanels</a>
     </div>
 </div>
 
@@ -17,9 +17,9 @@
         </div>
     </nav>
     @{
-        var panels = UISupportRazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext, typeof(CloudSubscription.Menu));
+        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext);
     }
     @* Component to add for dynamic rendering of AI-generated content *@
-    <UISupportRazor.Menu ClassesInfo="@panels"></UISupportRazor.Menu>
+    <UISupportBlazor.Menu ClassesInfo="@panels"></UISupportBlazor.Menu>
 </div>
 

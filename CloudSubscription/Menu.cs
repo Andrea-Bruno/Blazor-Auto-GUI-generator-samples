@@ -1,12 +1,11 @@
 ﻿using CloudSubscription.Panels;
-using System.Linq.Expressions;
 
 namespace CloudSubscription
 {
     public class Menu
     {
         /// <summary>
-        /// Subscription Configurator
+        /// Subscription Configurator panel
         /// </summary>
         public CreateNewSubscription Subscription { get; set; } = new();
     }
