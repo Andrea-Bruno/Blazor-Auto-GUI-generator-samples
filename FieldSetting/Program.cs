@@ -3,7 +3,7 @@ using FieldSetting.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 // Used to get httpContext in razor pages
 builder.Services.AddHttpContextAccessor();

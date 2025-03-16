@@ -1,4 +1,4 @@
-# Demo project of the automatic GUI generation tool for Blazor
+﻿# Demo project of the automatic GUI generation tool for Blazor
 
 This project contains two example classes located in the Panel folder. These classes create the corresponding menu items in the side panel, which open the corresponding panels represented by the class. Have fun modifying these classes because it is the easiest way to learn how they work!
 
@@ -74,5 +74,33 @@ It is also possible to create custom attributes by setting a regular expression:
 In this case the validation will be based on the regular expression assigned as an attribute of the property.
 
 In most cases setting validation is not necessary, this is also thanks to the use of special words used in the property name or in its comment, however it is possible to intervene to create fields with custom validation both through a regular expression contained in the property attributes and through particular attributes.
+
+## Range setting
+
+The range allows to limit the value of the property within a certain range of values: Setting a range will then be reflected in the UI preventing the insertion of data outside a pre-established range.
+
+Example of range definition for numeric properties:
+
+```csharp
+    public class Range
+    {
+        /// <summary>
+        /// Set the selling price
+        /// </summary>
+        [Range(1.0, 100.0, 0.5)]
+        public double Price { get; set; } = 50.5;
+
+        /// <summary>
+        /// Set up purchase of Bitcoin at the set price of one USD
+        /// </summary>
+        public int LimitOrder { get; set; } = 100000;
+        internal int LimitOrder_Min = 50000;
+        internal int LimitOrder_Max = 1500000;
+        internal int LimitOrder_Step = 10000;
+    }
+```
+
+As you can see from the example, there are two ways to set a range, the first by assigning an attribute to the property that defines its min, max, and step values ​​(**[Range(1.0, 100.0, 0.5)]**), and the second by using variables with the same name as the property with the addition of the suffixes **_Min, _Max, and _Step**. The second way is useful in all those cases where you need to change the range values ​​on the fly from the program, because since these are variables, they can be modified during the execution of the program.
+
 
 As you can see this tool automatically creates the GUI, without writing additional code to the back-end functions, all in the simplest and most natural way possible!
