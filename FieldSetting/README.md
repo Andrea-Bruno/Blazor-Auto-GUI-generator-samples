@@ -1,0 +1,78 @@
+# Demo project of the automatic GUI generation tool for Blazor
+
+This project contains two example classes located in the Panel folder. These classes create the corresponding menu items in the side panel, which open the corresponding panels represented by the class. Have fun modifying these classes because it is the easiest way to learn how they work!
+
+## Attributes applicable to properties
+
+For the most common types, field validation and formatting is automatically detected. For specific fields, it is possible to set validation by adding an attribute to the property.
+The supported attributes are:
+**[Email] [InternationalPhone] [ZipCode] [AlphanumericPostalCode] [Url] [StrongPassword] [LettersOnly] [NumbersOnly] [Alphanumeric] [Date] [IPv4] [IPv6] [CreditCard] [ProperName] [PositiveDecimal] [FileName] [ItalianTaxCode] [ItalianLicensePlate] [Time24HourFormat] [ISBN10] [ISBN13] [HexColorCode] [MACAddress] [USSocialSecurityNumber] [USPhoneNumber] [CurrencyFormat] [LatinLettersAndSpaces] [HTMLTag] [BinaryNumber] [HexadecimalNumber] [Slug] [Percentage] [UUID] [NonEmptyStrings] [DigitsWithThousandsSeparator] [MultilingualText] [FloatingPointNumber] [PositiveIntegersOnly] [NegativeIntegersOnly] [AlphaNumericWithSpaces] [UppercaseOnly] [LowercaseOnly] [TwoDecimalFloatingPoint] [USZipPlus4Code] [FilePath] [HTMLComment] [CreditCardExpirationDate] [CanadianPostalCode] [HTMLColor] [EuropeanDate] [Base64String] [YouTubeVideoID] [IPv4CIDRBlock] [TwitterUsername] [InstagramUsername] [LinkedInProfileURL] [UUIDWithBraces]**
+
+Here is an example of how to assign an attribute to a property:
+
+```csharp
+
+    public static class FieldAttributes
+    {
+        /// <summary>
+        /// Field validation using the [Url] attribute
+        /// </summary>
+        [Url]
+        public static string? WebAddress { get; set; }
+    }
+
+```
+
+In the example above the [url] attribute has been assigned to the WebAddress property, this will make this field validate as a url.
+
+We can create a public method to validate a form created by the GUI representation of the class. Inside the method, just insert the code as in the example:
+
+```csharp
+
+        /// <summary>
+        /// Press to validate all the form fields and execute and process the submission
+        /// </summary>
+        [DebuggerHidden] //Prevent debugging from breaking on invalid fields
+        public static void Submit()
+        {
+            if (!UISupportGeneric.Util.ValidateClass(typeof(FieldAttributes), out var report))
+            {
+                string ValidationErrorsLeteral = string.Join(Environment.NewLine, report.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
+                throw new Exception(ValidationErrorsLeteral);
+            }
+
+            // I put here the code that will be executed when the validation is successful!
+            ...
+        }
+```
+If the class is not static, validation occurs by passing the value of the class instance using the keyword **this**:
+
+```csharp
+
+            if (!UISupportGeneric.Util.ValidateClass(this, out var report))
+```
+
+It is also possible to create custom attributes by setting a regular expression:
+
+```csharp
+
+    public class CustomFields
+    {
+        /// <summary>
+        /// Validates that the age is an integer between 18 and 75.
+        /// </summary>
+        [Regex(@"^(1[89]|[2-6][0-9]|7[0-5])$")]
+        public string? Age { get; set; }
+
+        /// <summary>
+        /// Validates that the email is in a standard email format.
+        /// </summary>
+        [Regex(@"^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$")]
+        public string? Email { get; set; }
+    }
+```
+In this case the validation will be based on the regular expression assigned as an attribute of the property.
+
+In most cases setting validation is not necessary, this is also thanks to the use of special words used in the property name or in its comment, however it is possible to intervene to create fields with custom validation both through a regular expression contained in the property attributes and through particular attributes.
+
+As you can see this tool automatically creates the GUI, without writing additional code to the back-end functions, all in the simplest and most natural way possible!
