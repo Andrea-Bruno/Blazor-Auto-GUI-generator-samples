@@ -9,10 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.40.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\UISupportBlazor\UISupportBlazor.csproj" />
+    <PackageReference Include="UISupportBlazor" Version="1.25.3.17" />
   </ItemGroup>
 
   <ItemGroup>
