@@ -1,10 +1,10 @@
-# Demo project of the automatic GUI generation tool for Blazor
+## Special Words (Basic logic)
 
 Our concept is to create a powerful tool for the automatic front end dinner of applications without having to add the burden for the developer of having to learn convoluted and complicated mechanisms.
 In practice, our tool allows anyone to speed up their work by 70% without having to acquire new professional skills.
 Our implementation of special words also falls within this perspective, which are commonly used words that, if inserted in the description or in the name of the properties, make them take on particular characteristics.
 
-## Special Words:
+### Special Words:
 
 | Special Words  | type             | Placement           |
 |----------------|------------------|---------------------|

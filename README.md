@@ -2,6 +2,11 @@
 
 ## Collection of demo applications showing the power of the sophisticated GUI generator (front-end), for Blazor.
 
+Clone the repository, in the folders you will find demo projects that will allow you to quickly learn how to use this revolutionary technology.
+
+A short manual with everything you need to know.
+[User manual](MANUAL.md)
+
 Detailed instructions for using this technology can be found here:
 https://github.com/Andrea-Bruno/UISupportBlazor
 

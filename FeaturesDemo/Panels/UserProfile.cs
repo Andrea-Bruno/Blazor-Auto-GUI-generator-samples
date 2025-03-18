@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace MultiPanels.Panels
+namespace FeaturesDemo.Panels
 {
     /// <summary>
     /// Example of a form to fill in
     /// </summary>
-    public class UserProfilecs
+    public class UserProfile
     {
         /// <summary>
         /// You are welcome

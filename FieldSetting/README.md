@@ -2,7 +2,7 @@
 
 This project contains two example classes located in the Panel folder. These classes create the corresponding menu items in the side panel, which open the corresponding panels represented by the class. Have fun modifying these classes because it is the easiest way to learn how they work!
 
-## Attributes applicable to properties
+### Attributes applicable to properties
 
 For the most common types, field validation and formatting is automatically detected. For specific fields, it is possible to set validation by adding an attribute to the property.
 The supported attributes are:
@@ -75,7 +75,7 @@ In this case the validation will be based on the regular expression assigned as 
 
 In most cases setting validation is not necessary, this is also thanks to the use of special words used in the property name or in its comment, however it is possible to intervene to create fields with custom validation both through a regular expression contained in the property attributes and through particular attributes.
 
-## Range setting
+### Range setting
 
 The range allows to limit the value of the property within a certain range of values: Setting a range will then be reflected in the UI preventing the insertion of data outside a pre-established range.
 

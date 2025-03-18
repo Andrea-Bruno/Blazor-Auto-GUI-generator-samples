@@ -1,4 +1,4 @@
-using MultiPanels.Components;
+using FeaturesDemo.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
