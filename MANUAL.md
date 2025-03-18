@@ -50,8 +50,8 @@ This table summarizes the rendering logic of the components:
 | Element  | GUI rendering    | Editable         | Statement example                         |
 |----------|------------------|------------------|-------------------------------------------|
 | Property | if Get is public | If Set is public | public string? Name { get; private set; } |
-| Method   | if it's public   | none             | public  int AddNumbers(int a, int b) {...}|                                   |
-| Field    | none             | name             | public string? Field2;                    |
+| Method   | if it's public   | none             | public  int AddNumbers(int a, int b) {...}|
+| Field    | none             | none             | public string? Field2;                    |
 
 Another thing to keep in mind is that **Reference Types** create sub-panels, as they are collectors of properties and methods.
 With these little notions you have learned the fundamentals of this exciting technology!
@@ -180,7 +180,6 @@ Example of range definition for numeric properties:
 ```
 
 As you can see from the example, there are two ways to set a range, the first by assigning an attribute to the property that defines its min, max, and step values ​​(**[Range(1.0, 100.0, 0.5)]**), and the second by using variables with the same name as the property with the addition of the suffixes **_Min, _Max, and _Step**. The second way is useful in all those cases where you need to change the range values ​​on the fly from the program, because since these are variables, they can be modified during the execution of the program.
-
 
 As you can see this tool automatically creates the GUI, without writing additional code to the back-end functions, all in the simplest and most natural way possible!
 

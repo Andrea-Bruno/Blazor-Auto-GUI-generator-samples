@@ -44,8 +44,8 @@ This table summarizes the rendering logic of the components:
 | Element  | GUI rendering    | Editable         | Statement example                         |
 |----------|------------------|------------------|-------------------------------------------|
 | Property | if Get is public | If Set is public | public string? Name { get; private set; } |
-| Method   | if it's public   | none             | public  int AddNumbers(int a, int b) {...}|                                   |
-| Field    | none             | name             | public string? Field2;                    |
+| Method   | if it's public   | none             | public  int AddNumbers(int a, int b) {...}|
+| Field    | none             | none             | public string? Field2;                    |
 
 Another thing to keep in mind is that **Reference Types** create sub-panels, as they are collectors of properties and methods.
 With these little notions you have learned the fundamentals of this exciting technology!
