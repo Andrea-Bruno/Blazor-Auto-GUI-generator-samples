@@ -41,7 +41,7 @@ The properties and methods, if public, will be rendered in the GUI, while the fi
 For properties, these will be editable from GUI if the Set method is also public.
 This table summarizes the rendering logic of the components:
 
-| element  | GUI rendering    | Editable         | example                                   |
+| Element  | GUI rendering    | Editable         | Statement example                         |
 |----------|------------------|------------------|-------------------------------------------|
 | Property | if Get is public | If Set is public | public string? Name { get; private set; } |
 | Method   | if it's public   | none             | public  int AddNumbers(int a, int b) {...}|                                   |
