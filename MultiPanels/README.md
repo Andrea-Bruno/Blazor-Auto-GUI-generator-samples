@@ -7,7 +7,7 @@ Insert the classes that will represent the panels, in the Panels folder of the p
 Static classes are for global use and the values ​​set in them will remain unchanged even after the application is restarted (without the need to save them).
 Non-static classes will instead be assigned to users, each user will have his own instance of the non-static class which will be associated with his browsing session.
 
-### Multiple panelsIn this example we have multiple panels, each related to a class located in the Panels directory, and each generates a menu item in the user interface.
+### In this example we have multiple panels, each related to a class located in the Panels directory, and each generates a menu item in the user interface.
 As an exercise try to modify existing classes, add properties and create new classes, you will see that everything will be reflected in the GUI.
 Ricardo: Only public properties and public methods are visually represented in the GUI.
 Properties that are public for reading but private for writing in the user interface will be represented as read-only (you cannot edit them)., example:

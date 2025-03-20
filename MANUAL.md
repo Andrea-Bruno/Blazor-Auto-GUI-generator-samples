@@ -13,7 +13,7 @@ Insert the classes that will represent the panels, in the Panels folder of the p
 Static classes are for global use and the values ​​set in them will remain unchanged even after the application is restarted (without the need to save them).
 Non-static classes will instead be assigned to users, each user will have his own instance of the non-static class which will be associated with his browsing session.
 
-### Multiple panelsIn this example we have multiple panels, each related to a class located in the Panels directory, and each generates a menu item in the user interface.
+### In this example we have multiple panels, each related to a class located in the Panels directory, and each generates a menu item in the user interface.
 As an exercise try to modify existing classes, add properties and create new classes, you will see that everything will be reflected in the GUI.
 Ricardo: Only public properties and public methods are visually represented in the GUI.
 Properties that are public for reading but private for writing in the user interface will be represented as read-only (you cannot edit them)., example:
@@ -194,7 +194,7 @@ Since the array is not editable, it must have public only for Get, while for Set
 The following is an example of a selector of elements in an array, which executes some code when the user has made the selection.
 
 ```csharp
-  /// <summary>
+    /// <summary>
     /// Demonstration of the OnSelect event on arrays
     /// </summary>
     public class OnSelectEvent
@@ -221,6 +221,66 @@ The following is an example of a selector of elements in an array, which execute
         public string? SelectedPerson { get; private set; }
     }
 ```
+
+## Hidden a element dynamically
+
+There are two ways to dynamically hide and show elements from the GUI:
+The first is to assign the attribute [HiddenBind("BindBoolNameField")] to the element, indicating the name of a bool field in the same class. From our example, replace "BindBoolNameField" with the name of the field you use in your class.
+The second is to create a boolean field with the name of the element to hide, plus the suffix "_hidden". This field will automatically become the hidden property for the field specified in the initial part of the name.
+It is important to keep in mind that in both the first and second cases, you need to refer to a bool field, and not to a property. The visibility of the boolean field (public, private, etc.) is irrelevant.
+To hide public elements from the GUI, you can simply use the attribute [HiddenFromGUI].
+In this example class, all these cases are considered:
+
+```csharp
+    public class HiddenAttribute
+    {
+        /// <summary>
+        /// Demo field
+        /// </summary>
+        [HiddenBind("IsHidden")] // Associate the display of this with the value of the IsHidden field
+        public string Currency { get; set; } = "USD";
+
+        internal bool IsHidden; // This element is the hidden field of the element above because it is associated with the HiddenBind attribute
+
+        /// <summary>
+        /// Invert the display state
+        /// </summary>
+        public void ChangeHiddenStatusOfCurrencyField() => IsHidden = !IsHidden;
+
+        /// <summary>
+        /// Demo field
+        /// </summary>
+        public string CryptoCyrrency { get; set; } = "Bitcoin";
+
+
+        private bool CryptoCyrrency_Hidden = false; // This element is the hidden field of the element above because it has the same name plus the suffix _hidden
+
+        /// <summary>
+        /// Invert the display state
+        /// </summary>
+        public void ChangeHiddenStatusOfCryptoCyrrencyField() => CryptoCyrrency_Hidden = !CryptoCyrrency_Hidden;
+
+        /// <summary>
+        /// Permanently hidden field
+        /// </summary>
+        [HiddenFromGUI]
+        public string HiddenFRonGUI = "Permanently hidden field";
+
+        /// <summary>
+        /// This field, if present, controls the graphical representation of the class in the GUI.
+        /// </summary>
+        private bool Hidden;
+
+        /// <summary>
+        /// This button hides/shows the item related to this panel from the right side menu.
+        /// </summary>
+        public void ToggleFromMenu() => Hidden = !Hidden;
+    }    
+```
+
+As we have seen, the class represents a panel, whose menu item to access it appears in the GUI sidebar. To hide the panel, simply add a bool field called Hidden and set it to true. This can be done dynamically during the operation of the app.
+
+As you may have noticed, hiding and showing an element is very simple and intuitive!
 
 ## Cloud Subscription (Demo project of the automatic GUI generation tool for Blazor)
 

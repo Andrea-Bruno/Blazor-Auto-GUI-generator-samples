@@ -6,7 +6,7 @@
     /// To create the event, you need to set a method with a single parameter of type int, with the suffix OnSelect + the name of the array you want to cook the interaction with the user.
     /// For example, for the Persons array, the name of the selection event will be OnSelectPersons(the prefix OnSelect + Persons, which is the name of the array).
     /// Since the array is not editable, it must have public only for Get, while for Set it must not be public.
-/   /// The following is an example of a selector of elements in an array, which executes some code when the user has made the selection.
+    /// The following is an example of a selector of elements in an array, which executes some code when the user has made the selection.    
     /// </summary>
     public class OnSelectEvent
     {
