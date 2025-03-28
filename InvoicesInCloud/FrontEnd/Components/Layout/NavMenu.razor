@@ -2,7 +2,7 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">FieldSetting</a>
+        <a class="navbar-brand" href="">InvoicesInCloud</a>
     </div>
 </div>
 
@@ -17,7 +17,9 @@
         </div>
     </nav>
     @{
-        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext);
+        //var backEndAssembly = typeof(InvoicesOnCloudBackEnd.Class1).Assembly;
+        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext, "InvoicesOnCloudBackEnd.Panels");
+        //var panels = UISupportGeneric.Util.GetAllClassInfoInNamespace("InvoicesOnCloudBackEnd.Panels", backEndAssembly);
     }
     @* Component to add for dynamic rendering of AI-generated content *@
     <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>

@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
-namespace MultiPanels.Panels
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+
+namespace InvoicesInCloudBackEnd.Panels
 {
     /// <summary>
     /// Demonstration of the OnSelect event on arrays

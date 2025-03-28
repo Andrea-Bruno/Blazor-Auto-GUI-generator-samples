@@ -20,6 +20,6 @@
         var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext, typeof(CloudSubscription.Menu));
     }
     @* Component to add for dynamic rendering of AI-generated content *@
-    <UISupportBlazor.Menu ClassesInfo="@panels"></UISupportBlazor.Menu>
+    <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>
 </div>
 

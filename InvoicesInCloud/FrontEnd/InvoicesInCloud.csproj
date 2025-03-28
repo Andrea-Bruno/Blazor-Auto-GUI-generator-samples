@@ -9,7 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.40.0" />
-    <PackageReference Include="UISupportBlazor" Version="1.25.3.28" />
+    <PackageReference Include="UISupportBlazor" Version="1.25.3.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BackEnd\InvoicesOnCloudBackEnd.csproj" />
   </ItemGroup>
 
   <ItemGroup>
