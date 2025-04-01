@@ -17,9 +17,7 @@
         </div>
     </nav>
     @{
-        //var backEndAssembly = typeof(InvoicesOnCloudBackEnd.Class1).Assembly;
-        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext, "InvoicesOnCloudBackEnd.Panels");
-        //var panels = UISupportGeneric.Util.GetAllClassInfoInNamespace("InvoicesOnCloudBackEnd.Panels", backEndAssembly);
+        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext, "InvoicesInCloudBackEnd.Panels");
     }
     @* Component to add for dynamic rendering of AI-generated content *@
     <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>

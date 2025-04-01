@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice {{Invoice.Id}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .company-info {
+            margin-bottom: 20px;
+        }
+
+        .invoice-info {
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .totals {
+            margin-left: auto;
+            width: 300px;
+        }
+
+            .totals td {
+                border: none;
+            }
+
+        .text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>INVOICE</h1>
+        <div class="invoice-info">
+            <p><strong>Invoice No:</strong> {{Invoice.Id}}</p>
+            <p><strong>Date:</strong> {{Invoice.Date}}</p>
+        </div>
+    </div>
+
+    <div class="company-info">
+        <div style="float: left; width: 50%;">
+            <h3>Issued By:</h3>
+            <p>{{Invoice.InvoiceIssuedBy}}</p>
+        </div>
+        <div style="float: right; width: 50%;">
+            <h3>Issued To:</h3>
+            <p>{{Invoice.InvoiceIssuedTo.CompanyName}}</p>
+            <p>{{Invoice.InvoiceIssuedTo.Address}}</p>
+            <p>{{Invoice.InvoiceIssuedTo.TaxId}}</p>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+                <th>VAT %</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{Items}}
+        </tbody>
+    </table>
+
+    <table class="totals">
+        <tr>
+            <td><strong>Subtotal:</strong></td>
+            <td class="text-right">{{Invoice.TotalOnInvoice}}</td>
+        </tr>
+        <tr>
+            <td><strong>Total VAT:</strong></td>
+            <td class="text-right">{{Invoice.TotalVat}}</td>
+        </tr>
+        <tr>
+            <td><strong>Total Amount:</strong></td>
+            <td class="text-right">{{Invoice.TotalWithVat}}</td>
+        </tr>
+    </table>
+</body>
+</html>
