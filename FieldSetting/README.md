@@ -104,3 +104,26 @@ As you can see from the example, there are two ways to set a range, the first by
 
 
 As you can see this tool automatically creates the GUI, without writing additional code to the back-end functions, all in the simplest and most natural way possible!
+
+### ReadOnly attribute
+
+The [ReadOnly(true)] attribute forces properties with the public setter to be read-only as well.
+
+```csharp
+    public class ReadonlyAttribute
+    {
+        /// <summary>
+        /// Array of strings with public setter
+        /// </summary>
+        public string[] StringsArray { get; set; } = ["one", "two", "three"];
+
+        /// <summary>
+        /// Array of strings with public setter and ReadOnly attribute
+        /// </summary>
+        [ReadOnly(true)]
+        public string[] StringArrayReadonly { get; set; } = ["one", "two", "three"];
+    }
+```
+
+In this example we see two arrays formally identical with the only difference that one has applied the read only attribute. The array without the ReadOnly attribute, having the public setter will be editable by the user in the GUI.
+Normally, to make an element uneditable, it would be enough to set the setter as private, but if this is not possible, you can use the RaedOnly attribute.
