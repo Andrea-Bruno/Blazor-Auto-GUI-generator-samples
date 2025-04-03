@@ -1,0 +1,38 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">LoginAndSession</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+    </nav>
+    @{
+        // Get all class info for the panels in the current assembly (If the back-end is external you can indicate the namespace for which you want to generate the panels)
+        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext);
+
+        // Get the session object
+        var session = UISupportBlazor.Session.Sessions.GetSession(HttpContextAccessor.HttpContext);
+
+        // Get the login panel from the session
+        var login = (Panels.Login)session.GetPanelValue(nameof(Panels.Login));
+        if (!login.IsLogged)
+        {
+            // If not logged in, set the login panel to be the only one visible
+            login.OnLoginSuccess = () => InvokeAsync(StateHasChanged); // Refresh the menu on login success
+            panels = panels.FindAll(panel => panel.Label == nameof(Panels.Login)); // Show only the login panel if not logged in
+        }
+    }
+    @* Component to add for dynamic rendering of AI-generated content *@
+    <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>
+</div>
+
