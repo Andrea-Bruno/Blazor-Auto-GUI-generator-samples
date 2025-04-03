@@ -1,5 +1,6 @@
 ﻿
-# UISupportManual
+# UI Support Blazor Manual
+## A quick primer on the UISupportBlazor approach
 
 This guide is very short because the goal of this project is to automate the creation of the GUI (user interface) without changing the programming methodology with which developers create their works. The precautions to be taken will therefore be minimal and all in line with the "best practice". What does all this mean? It means that if you are a developer already attentive to the use of the "best practice", then you are already able to use this powerful and miraculous development tool!
 The simplicity at the base of this innovative technique is impressive for its simplicity, and as a demonstration of all this we have attached to this document some projects that you can open, run and modify in order to become familiar with this exciting and surprising technology.
