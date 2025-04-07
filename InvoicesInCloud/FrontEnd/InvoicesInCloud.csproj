@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.40.0" />
-    <PackageReference Include="UISupportBlazor" Version="1.25.4.3" />
+    <PackageReference Include="UISupportBlazor" Version="1.25.4.7" />
   </ItemGroup>
 
   <ItemGroup>
