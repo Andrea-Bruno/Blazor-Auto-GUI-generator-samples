@@ -9,11 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.41.0" />
+    <PackageReference Include="PayPal.Easy" Version="1.25.4.27" />
     <PackageReference Include="UISupportBlazor" Version="1.25.4.27" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\PayPal\PayPal.csproj" />
   </ItemGroup>
 
   <ItemGroup>

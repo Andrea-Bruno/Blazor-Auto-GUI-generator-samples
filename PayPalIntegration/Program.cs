@@ -7,6 +7,11 @@ var configuration = builder.Configuration;
 // load settings from appsettings.json
 PayPalBusinessEmail = configuration.GetValue(typeof(string), nameof(PayPalBusinessEmail), null) as string;
 
+if (PayPalBusinessEmail == "YOUR_ACCOUNT@business.example.com")
+{
+    throw new Exception("Please set your PayPal business email in appsettings.json");
+}
+
 // Add services to the container.
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
