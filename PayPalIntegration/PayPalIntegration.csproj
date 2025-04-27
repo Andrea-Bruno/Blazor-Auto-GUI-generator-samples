@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BackEnd\InvoicesInCloudBackEnd.csproj" />
+    <ProjectReference Include="..\..\PayPal\PayPal.csproj" />
   </ItemGroup>
 
   <ItemGroup>

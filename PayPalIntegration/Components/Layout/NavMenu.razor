@@ -1,8 +1,9 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager Navigation
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">CloudSubscription</a>
+        <a class="navbar-brand" href="">PayPalIntegration</a>
     </div>
 </div>
 
@@ -17,8 +18,16 @@
         </div>
     </nav>
     @{
-        // In this example the side menu will be populated with items that are objects of the class typeof(CloudSubscription.Menu)) that is passed as a parameter
-        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext, typeof(CloudSubscription.Menu));
+        if (!UISupportBlazor.Session.IsConfigured)
+            UISupportBlazor.Session.Configure(HttpContextAccessor);
+        var panels = UISupportBlazor.Support.GetAllClassInfo();
+        var session = UISupportBlazor.Session.Current();
+        if (!session.Values.ContainsKey("BaseUrl"))
+        {
+            var uri = new Uri(Navigation.Uri);
+            var baseUrl = $"{uri.Scheme}://{uri.Host}:{uri.Port}";
+            session.Values.Add("BaseUrl", baseUrl);
+        }
     }
     @* Component to add for dynamic rendering of AI-generated content *@
     <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>

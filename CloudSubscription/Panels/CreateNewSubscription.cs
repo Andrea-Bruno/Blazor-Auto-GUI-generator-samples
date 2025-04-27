@@ -15,7 +15,7 @@ namespace CloudSubscription.Panels
         /// <summary>
         /// Standard cost in Euro (daily cost for Gigabyte)
         /// </summary>
-        public double DailyCostForGb { get; set; } = 0.005;
+        public double DailyCostForGb { get; } = 0.005;
 
 
         /// <summary>

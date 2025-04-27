@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.40.0" />
-    <PackageReference Include="UISupportBlazor" Version="1.25.4.8" />
+    <PackageReference Include="Markdig" Version="0.41.0" />
+    <PackageReference Include="UISupportBlazor" Version="1.25.4.27" />
   </ItemGroup>
 
   <ItemGroup>
