@@ -37,7 +37,7 @@ The following is an example of a selector of elements in an array, which execute
     }
 ```
 
-## Hidden a element dynamically
+### Hidden a element dynamically
 
 There are two ways to dynamically hide and show elements from the GUI:
 The first is to assign the attribute [HiddenBind("BindBoolNameField")] to the element, indicating the name of a bool field in the same class. From our example, replace "BindBoolNameField" with the name of the field you use in your class.
@@ -96,3 +96,65 @@ In this example class, all these cases are considered:
 As we have seen, the class represents a panel, whose menu item to access it appears in the GUI sidebar. To hide the panel, simply add a bool field called Hidden and set it to true. This can be done dynamically during the operation of the app.
 
 As you may have noticed, hiding and showing an element is very simple and intuitive!
+
+### Redirect
+
+From a panel we can redirect the user to another panel or redirect him to another URL simply by setting a value to the Uri field called Redirect.
+
+```csharp
+    /// <summary>
+    /// This class is used to demonstrate how to redirect the user to another web address
+    /// </summary>
+    public class RedirectUser
+    {
+        /// <summary>
+        /// By setting this value, the user is redirected to another web address (the setting causes the current user to navigate to the specified Uri)
+        /// </summary>
+        internal Uri? Redirect;
+
+        /// <summary>
+        /// Redirects the user to the Read Query String panel
+        /// </summary>
+        public void RedirectUserToReadQueryStringPanel()
+        {
+            var session = UISupportBlazor.Session.Current(); // get the current session (The user's browsing session)
+            var baseUrl = session?.Values["BaseUrl"] as string; // get the base URL of the application (We set this value in NavMenu.razor)
+            // Redirect the user to the url of the panel ReadQueryString and add the given query string in the url
+            Redirect = new Uri(baseUrl + "/nav/" + typeof(ReadQueryString).GUID + "?Data=" + "Hello_World");
+        }
+    }
+```
+In this example redirect the user to the ReadQueryString panel by appending the query string named Data to the url.
+
+### AsQueryString Attribute
+
+The AsQueryString attribute allows us to read the value of any query string set in the browser's navigation URL. In this example, after being redirected to the ReadQueryString panel from the RedirectUser panel in the previous example, we can read the value of the Data query string with extreme simplicity:
+
+```csharp
+    /// <summary>
+    /// This class is used to demonstrate how to read the query string in the url
+    /// </summary>
+    public class ReadQueryString
+    {
+
+        /// <summary>
+        /// This value, thanks to the AsQueryString attribute, will be set to the query string "Data" of the url.
+        /// The field name is case sensitive (pay attention to lowercase and uppercase letters)
+        /// </summary>
+        [AsQueryString]
+        private string? Data;
+
+        /// <summary>
+        /// Press this button to read the Data value of the query string in the url (if set);
+        /// </summary>
+        [DebuggerHidden]
+        public string? ReadDataValue()
+        {
+            if (Data == null)
+                throw new Exception("The query string in the url is not set");
+            return Data;
+        }
+    }
+```
+
+In a very simple way, it is possible to add the [AsQueryString] attribute to string fields so that during execution they will assume the value of the browser's Query String.

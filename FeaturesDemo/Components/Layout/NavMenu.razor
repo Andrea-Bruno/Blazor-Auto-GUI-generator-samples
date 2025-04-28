@@ -1,4 +1,5 @@
 ﻿@inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager Navigation
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -17,7 +18,12 @@
         </div>
     </nav>
     @{
-        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor.HttpContext);
+        if (!UISupportBlazor.Session.IsConfigured)
+            UISupportBlazor.Session.Configure(HttpContextAccessor);
+        var panels = UISupportBlazor.Support.GetAllClassInfo();
+        // We save the BaseUri of the current user in his browsing session (This value is useful to us in the RedirectUser panel)
+        var uri = new Uri(Navigation.Uri);
+        UISupportBlazor.Session.Current()?.Values.TryAdd("BaseUrl", $"{uri.Scheme}://{uri.Host}:{uri.Port}");
     }
     @* Component to add for dynamic rendering of AI-generated content *@
     <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>

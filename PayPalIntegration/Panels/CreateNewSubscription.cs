@@ -1,8 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System;
+﻿using System.Text.RegularExpressions;
 namespace PayPalIntegration.Panels
 {
     public class CreateNewSubscription
@@ -44,7 +40,7 @@ namespace PayPalIntegration.Panels
         /// Confirm your subscription to the cloud service, as per your settings
         /// </summary>
         /// <returns></returns>
-        [DebuggerHidden]
+      //  [DebuggerHidden]
         public string Submit()
         {
             if (Email == null || !Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) // validate Email address
@@ -52,7 +48,7 @@ namespace PayPalIntegration.Panels
                 throw new ArgumentException("Invalid email address!");
             }
             var session = UISupportBlazor.Session.Current();
-            var baseUrl = session.Values["BaseUrl"] as string;
+            var baseUrl = session?.Values["BaseUrl"] as string;
             var returnUrl = baseUrl + "/return/";
             var cancelUrl = baseUrl + "/cancel/";
 
