@@ -1,0 +1,53 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager NavManager
+@using ProjectTemplate.Panels
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">ProjectTemplate</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    @{
+        var panels = UISupportBlazor.Support.GetAllClassInfo(HttpContextAccessor);
+        // If not logged in, show only panels shared between users
+        if (Login.IsLoggedIn != true)
+        {
+            Login.OnLoginSuccess = () => InvokeAsync(StateHasChanged); // Refresh the menu on login success
+            panels = panels?.FindAll(panel => panel.IsStatic); // Filter panels to show only those that are static. These panels are shared between all users, unlike the others which have an instance for each user.
+        }
+    }
+    @* Component to add for dynamic rendering of AI-generated content *@
+    <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>
+</div>
+@code {
+    protected override void OnInitialized()
+    {
+        if (NavManager.Uri.EndsWith("/"))
+        {
+            NavManager.NavigateTo("/nav/" + typeof(Login).GUID, forceLoad: true); // Set Login Panel as Landing Page
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,6 +5,9 @@
 This guide is very short because the goal of this project is to automate the creation of the GUI (user interface) without changing the programming methodology with which developers create their works. The precautions to be taken will therefore be minimal and all in line with the "best practice". What does all this mean? It means that if you are a developer already attentive to the use of the "best practice", then you are already able to use this powerful and miraculous development tool!
 The simplicity at the base of this innovative technique is impressive for its simplicity, and as a demonstration of all this we have attached to this document some projects that you can open, run and modify in order to become familiar with this exciting and surprising technology.
 
+## Project Template
+Among the demo tutorials you will find a project called **ProjectTemplate**, launch it and use it to create a blank template to bring your project to life! Increase your productivity dramatically!
+
 ## Multi Panels (Basic logic)
 
 The purpose of the automatic generator of graphical interfaces for **Blazor** is to create graphical interfaces without changing the programming style of the back-end. Developers will be able to use this tool immediately by simply developing the back-end following the best programming practices.

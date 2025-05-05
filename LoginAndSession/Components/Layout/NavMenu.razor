@@ -25,11 +25,11 @@
 
         // Get the login panel from the session
         var login = (Panels.Login)session.GetPanelValue(nameof(Panels.Login));
-        if (!login.IsLogged)
+        if (login?.IsLogged == false)
         {
             // If not logged in, set the login panel to be the only one visible
             login.OnLoginSuccess = () => InvokeAsync(StateHasChanged); // Refresh the menu on login success
-            panels = panels.FindAll(panel => panel.Label == nameof(Panels.Login)); // Show only the login panel if not logged in
+            panels = panels?.FindAll(panel => panel.Id.Equals(typeof(Panels.Login).GUID)); // Show only the login panel if not logged in
         }
     }
     @* Component to add for dynamic rendering of AI-generated content *@
