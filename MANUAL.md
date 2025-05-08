@@ -5,6 +5,33 @@
 This guide is very short because the goal of this project is to automate the creation of the GUI (user interface) without changing the programming methodology with which developers create their works. The precautions to be taken will therefore be minimal and all in line with the "best practice". What does all this mean? It means that if you are a developer already attentive to the use of the "best practice", then you are already able to use this powerful and miraculous development tool!
 The simplicity at the base of this innovative technique is impressive for its simplicity, and as a demonstration of all this we have attached to this document some projects that you can open, run and modify in order to become familiar with this exciting and surprising technology.
 
+## Automatic API Generator
+
+Our technology implements an automatic API generation system for remote command access that is precise, effective, and does not require writing code. This allows you to run your applications in the cloud quickly and easily without creating complicated full REST API protocol mechanisms for integration between server and client applications.
+With its **unique deterministic architecture**, **real-time API layer generation**, and **error-free automation**, this technology sets a new standard for API development. As an officially licensed and copyrighted innovation, it ensures both **security** and **efficiency**, making it an indispensable tool for modern software development.
+
+In the ever-evolving landscape of software development, automation plays a crucial role in enhancing efficiency and reducing manual workload. Traditional API development often requires extensive coding efforts, complex configurations, and precise prompt-based interactions with AI models, introducing room for potential misinterpretations and inconsistencies.
+
+Our groundbreaking API generation system removes these uncertainties by adopting a fully deterministic approach that eliminates AI-driven interpretative errors and ensures absolute precision in API management.
+
+The automation of the API communication process is fully integrated, both on the server side and on the client side. In our demo tutorials, we have developed a practical example consisting of two projects, **ApiConsumer** and **ApiProvider**, which serve as a valid demonstration of the integration of this technology. For more detailed information, you can refer to the README.md documents that accompany these projects.
+
+Implementing APIs for web accessibility is extremely simple:  
+Just add **a single line of code** during application initialization in `Program.cs`:
+
+```csharp
+var app = builder.Build();
+
+// Enable APIs that allow a client application to remotely execute methods contained in the class
+app.UseMiddleware<UISupportBlazor.ApiMiddleware>(typeof(ApiProvider.API));
+```
+In this example, the middleware is added to support APIs within the `ApiProvider.API` class.  
+All methods defined in this class **will be automatically exposed** and accessible to external clients.
+
+Once the server-side API technology has been implemented with this simple step, and the application has been launched, navigating to the API entry point (e.g., https://localhost:7107/api, noting the `/api` segment) will allow you to instantly retrieve the client-side code directly in your browser. The generated code is ready to be copied and seamlessly integrated into your client application.
+
+For more information see the **ApiConsumer** and **ApiProvider** demo projects and their documentation.
+
 ## Project Template
 Among the demo tutorials you will find a project called **ProjectTemplate**, launch it and use it to create a blank template to bring your project to life! Increase your productivity dramatically!
 

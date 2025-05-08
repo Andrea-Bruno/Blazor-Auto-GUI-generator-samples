@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.41.1" />
     <PackageReference Include="PayPal.Easy" Version="1.25.5.2" />
-    <PackageReference Include="UISupportBlazor" Version="1.25.5.5" />
+    <PackageReference Include="UISupportBlazor" Version="1.25.5.8" />
   </ItemGroup>
 
   <ItemGroup>
