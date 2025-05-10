@@ -14,7 +14,7 @@ In the ever-evolving landscape of software development, automation plays a cruci
 
 Our groundbreaking API generation system removes these uncertainties by adopting a fully deterministic approach that eliminates AI-driven interpretative errors and ensures absolute precision in API management.
 
-The automation of the API communication process is fully integrated, both on the server side and on the client side. In our demo tutorials, we have developed a practical example consisting of two projects, **ApiConsumer** and **ApiProvider**, which serve as a valid demonstration of the integration of this technology. For more detailed information, you can refer to the README.md documents that accompany these projects.
+The automation of the API communication process is fully integrated, both on the server side and on the client side. In our demo tutorials, we have developed a practical example consisting of two projects, **ApiConsumer** and **ApiProvider** (in ApiDemo folder), which serve as a valid demonstration of the integration of this technology. For more detailed information, you can refer to the README.md documents that accompany these projects.
 
 Implementing APIs for web accessibility is extremely simple:  
 Just add **a single line of code** during application initialization in `Program.cs`:
