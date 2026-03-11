@@ -9,8 +9,8 @@ PayPalBusinessEmail = configuration.GetValue(typeof(string), nameof(PayPalBusine
 
 if (PayPalBusinessEmail == "YOUR_ACCOUNT@business.example.com")
 {
-    // follow: https://developer.paypal.com/tools/sandbox/accounts/
-    // Your credentials: https://developer.paypal.com/dashboard/accounts
+    // Follow: https://developer.paypal.com/tools/sandbox/accounts/
+    // Your sandbox credentials: https://developer.paypal.com/dashboard/accounts
     throw new Exception("Please set your PayPal business email in appsettings.json");
 }
 
