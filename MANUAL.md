@@ -32,6 +32,192 @@ Once the server-side API technology has been implemented with this simple step, 
 
 For more information see the **ApiConsumer** and **ApiProvider** demo projects and their documentation.
 
+### API Request Authentication using Asymmetric Keys
+
+Our API system supports **RSA digital signature authentication** to secure API requests and prevent unauthorized access. This authentication mechanism uses asymmetric cryptography, where the client signs requests with a private key, and the server verifies them using the corresponding public key.
+
+**Key Benefits:**
+- **Zero-knowledge authentication**: The private key never leaves the client
+- **Replay attack prevention**: Automatic timestamp validation (5-minute tolerance)
+- **Selective public access**: Mark specific API methods as public using the `[IsPubblicAPI]` attribute
+- **Automatic integration**: The generated client code handles signing automatically
+
+#### Generating RSA Key Pairs
+
+To generate a secure RSA key pair, use the built-in utility method:
+
+```csharp
+var (privateKey, publicKey) = UISupportGeneric.Util.GenerateRsaKeyPair();
+
+Console.WriteLine("Private Key (keep secret on client):");
+Console.WriteLine(privateKey);
+
+Console.WriteLine("\nPublic Key (configure on server):");
+Console.WriteLine(publicKey);
+```
+
+The method generates a 2048-bit RSA key pair in PEM format (you can specify 4096 bits for enhanced security). Store the **private key securely on the client** and **configure the public key on the server**.
+
+#### Server Configuration
+
+Configure the server to require digital signatures by providing the RSA public key to the middleware. You can do this in two ways:
+
+**Option 1: Pass the public key directly to the middleware**
+
+```csharp
+var apiPublicKey = configuration.GetValue<string>("ApiPublicKey");
+app.UseMiddleware<UISupportBlazor.ApiMiddleware>(typeof(ApiCommands), apiPublicKey);
+```
+
+**Option 2: Set the public key as a static field in the API command class**
+
+```csharp
+public static class ApiCommands
+{
+    internal static string ApiPubblicKey = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBg...";
+
+    public static ulong CreateNewCloud(string name = null) { ... }
+}
+```
+
+Then register the middleware:
+
+```csharp
+app.UseMiddleware<UISupportBlazor.ApiMiddleware>(typeof(ApiCommands));
+```
+
+**Storing the public key in appsettings.json** (recommended for production):
+
+```json
+{
+  "ApiPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkq...\n-----END PUBLIC KEY-----"
+}
+```
+
+Load it in `Program.cs`:
+
+```csharp
+var apiPublicKey = configuration.GetValue<string>("ApiPublicKey");
+```
+
+#### Client Configuration
+
+The automatically generated client code includes built-in support for request signing. When you retrieve the client code from the API endpoint (e.g., `https://yourserver/api`), you'll see a constructor that accepts an optional `apiPrivateKey` parameter:
+
+```csharp
+public class YourAPIClient
+{
+    public YourAPIClient(string apiEntryPoint, string apiPrivateKey = null)
+    {
+        _apiEntryPoint = apiEntryPoint;
+        _apiPrivateKey = apiPrivateKey;
+    }
+}
+```
+
+To enable authentication, simply pass the private key when creating the client:
+
+```csharp
+var privateKey = "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKC...";
+var client = new YourAPIClient("https://yourserver/api", privateKey);
+
+// All requests will now be automatically signed
+var result = await client.CreateNewCloud("MyCloud");
+```
+
+**Without authentication** (for public APIs or testing):
+
+```csharp
+var client = new YourAPIClient("https://yourserver/api");
+// No signature, only works with public methods
+```
+
+#### Public API Methods
+
+You can mark specific API methods as publicly accessible (no signature required) using the `[IsPubblicAPI]` attribute:
+
+```csharp
+public static class ApiCommands
+{
+    // This method requires authentication
+    public static ulong CreateNewCloud(string name) { ... }
+
+    [IsPubblicAPI]
+    // This method is public - no authentication required
+    public static string GetServerStatus() { ... }
+}
+```
+
+Methods marked with `[IsPubblicAPI]` can be called without providing a private key, making them accessible to anyone. This is useful for:
+- Testing/demo endpoints
+- Public information endpoints
+- Health checks
+- Anonymous registration flows
+
+#### How Authentication Works
+
+When authentication is enabled, the following process occurs automatically:
+
+1. **Client side**: The generated code adds a Unix timestamp to the request JSON and signs it with the private RSA key, sending the signature in the `X-Signature` HTTP header.
+
+2. **Server side**: The middleware validates:
+   - Presence of the `X-Signature` header (if method is not marked `[IsPubblicAPI]`)
+   - Presence and format of the `timestamp` field in the JSON
+   - Timestamp validity (must be within ±5 minutes of server time)
+   - RSA signature authenticity using the configured public key
+
+3. **Rejection**: If any validation fails, the server returns HTTP 401 Unauthorized with a descriptive error message.
+
+#### Common Error Messages
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `Missing digital signature` | Client didn't sign the request | Provide `apiPrivateKey` to the client constructor |
+| `Invalid digital signature` | Wrong private key or data tampering | Verify the key pair matches |
+| `Missing timestamp in request` | Client code issue | Regenerate client code from the API endpoint |
+| `Request timestamp is too old` | Request took >5 minutes or replay attack | Check network latency and system clocks |
+| `Request timestamp is in the future. Check client system clock` | Client clock is ahead | Synchronize client system time |
+
+#### Complete Example
+
+**Server setup** (`Program.cs`):
+
+```csharp
+var apiPublicKey = configuration.GetValue<string>("ApiPublicKey");
+app.UseMiddleware<UISupportBlazor.ApiMiddleware>(typeof(ApiCommands), apiPublicKey);
+```
+
+**API commands** (`ApiCommands.cs`):
+
+```csharp
+public static class ApiCommands
+{
+    public static ulong CreateNewCloud(string name) { ... }
+
+    [IsPubblicAPI]
+    public static string GetVersion() => "1.0.0";
+}
+```
+
+**Client usage**:
+
+```csharp
+// Generate keys (one-time setup)
+var (privateKey, publicKey) = UISupportGeneric.Util.GenerateRsaKeyPair();
+// Give publicKey to server administrator
+
+// Create authenticated client
+var client = new YourAPIClient("https://yourserver/api", privateKey);
+
+// Call authenticated method
+var cloudId = await client.CreateNewCloud("MyCloud");
+
+// Call public method (works even without privateKey)
+var version = await client.GetVersion();
+```
+
+With this authentication system, your APIs are **secure by default** while maintaining the simplicity and automation that makes this technology powerful!
+
 ## Project Template
 Among the demo tutorials you will find a project called **ProjectTemplate**, launch it and use it to create a blank template to bring your project to life! Increase your productivity dramatically!
 
@@ -518,7 +704,7 @@ For this demo we chose to completely separate the software logic from the GUI re
 This example is a demonstration of the creation of minimalist software in the back end, which was written in just 25 minutes, of about 1 Kb of code, which is complete and functional in all its parts. The implementation of the technology for the automatic creation of the front end gives an acceleration to the creation of the product that is not comparable to that of any other tool.
 In addition to this, by simply changing the rendering engine of the front-end, we can obtain the same application for mobile or desktop devices: You write the code only once, focusing only on the logic of the back-end and you find the finished application with the front-end for web, mobile and desktop applications! All this is fantastic!
 
-[The source code of the back-end and front-end (auto-generated) are published Online](https://github.com/Andrea-Bruno/Blazor-Auto-GUI-generator-samples/tree/master/InvoicesInCloud)
+[The source code of the back-end and front-end (auto-generated) are published Online](https://github.com/Graphene-Lab/Blazor-Auto-GUI-generator-samples/tree/master/InvoicesInCloud)
 
 ### Main Classes in the Back-end
 

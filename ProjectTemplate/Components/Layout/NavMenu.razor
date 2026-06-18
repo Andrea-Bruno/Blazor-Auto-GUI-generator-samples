@@ -24,7 +24,7 @@
     <UISupportBlazor.Menu ClassInfoEnumerable="@panels"></UISupportBlazor.Menu>
 </div>
 @code {
-    protected override void OnInitialized()
+    protected override void OnAfterRender(bool firstRender)
     {
         if (NavManager.Uri.EndsWith("/"))
         {
