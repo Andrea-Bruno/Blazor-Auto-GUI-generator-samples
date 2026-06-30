@@ -156,7 +156,7 @@ namespace ProjectTemplate.Panels
                 return JsonSerializer.Deserialize<List<User>>(json);
             }
         }
-        private static readonly FileInfo UsersPathFile = new(Path.Combine(AppData, "users.ligin"));
+        private static readonly FileInfo UsersPathFile = new(Path.Combine(AppData, "users.login"));
         private static string AppData => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
 

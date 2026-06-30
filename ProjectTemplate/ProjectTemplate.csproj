@@ -5,10 +5,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <UserSecretsId>619b5325-302a-4b31-a137-2817a733a16e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="UISupportBlazor" Version="1.*" />
+    <ProjectReference Include="..\..\UISupportBlazor\UISupportBlazor.csproj" Condition="Exists('..\..\UISupportBlazor\UISupportBlazor.csproj')" />
+    <PackageReference Include="UISupportBlazor" Version="1.*" Condition="!Exists('..\..\UISupportBlazor\UISupportBlazor.csproj')" />
   </ItemGroup>
 
   <ItemGroup>

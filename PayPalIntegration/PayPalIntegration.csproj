@@ -10,7 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.41.1" />
     <PackageReference Include="PayPal.Easy" Version="1.25.5.2" />
-    <PackageReference Include="UISupportBlazor" Version="1.*" />
+    <ProjectReference Include="..\UISupportBlazor\UISupportBlazor.csproj" Condition="Exists('..\UISupportBlazor\UISupportBlazor.csproj')" />
+    <PackageReference Include="UISupportBlazor" Version="1.*" Condition="!Exists('..\UISupportBlazor\UISupportBlazor.csproj')" />
   </ItemGroup>
 
   <ItemGroup>
